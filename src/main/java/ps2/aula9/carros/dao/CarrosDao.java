@@ -16,8 +16,9 @@ public interface CarrosDao {
 			   " marca VARCHAR(255) NOT NULL," +
 			   " modelo VARCHAR(255) NOT NULL," +
 			   " velMax DOUBLE NOT NULL" +
-			   " estado VARCHAR(100) NOT NULL," +
+			   " estado VARCHAR(255)," +
 			   " carga DOUBLE NOT NULL," + 
+			   " PRIMARY kEY (id)," + 
 	")")
 	void createTable();
 	
