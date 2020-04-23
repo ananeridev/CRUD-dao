@@ -42,9 +42,9 @@ public class CarrosUI {
 		try {
 			String marca = DialogoGui.lerString("Marca:");
 			String modelo = DialogoGui.lerString("Modelo:");
-			Double velMax = DialogoGui.lerDouble("Velocidade Maxima");
+			int velMax = DialogoGui.lerInteiro("Velocidade Maxima");
 			String estado = DialogoGui.lerString("Estado:");
-			Double carga = DialogoGui.lerDouble("Carga");
+			int carga = DialogoGui.lerInteiro("Carga");
 
 			long id = dao.create(marca, modelo, velMax, estado, carga);
 			DialogoGui.mostrar("Carro criado com id " + id);
@@ -81,9 +81,9 @@ public class CarrosUI {
 			if (c != null) {
 				String marca = DialogoGui.lerString("Novo valor para a marca: ");
 				String modelo = DialogoGui.lerString("Novo valor para modelo");
-				double velMax = DialogoGui.lerDouble("Novo valor para Velocidade Máxima");
+				int velMax = DialogoGui.lerInteiro("Novo valor para Velocidade Máxima");
 				String estado = DialogoGui.lerString("Novo valor para estado");
-				double carga = DialogoGui.lerDouble("Novo valor para a carga");
+				int carga = DialogoGui.lerInteiro("Novo valor para a carga");
 
 
 				c.setMarca(marca);

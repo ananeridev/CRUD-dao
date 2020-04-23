@@ -5,19 +5,19 @@ public class Carro {
 		private long id;
 		private String marca;
 		private String modelo;
-		private double velMax;
+		private int velMax;
 		private String estado;
-		private double carga;
+		private int carga;
 		
 		public Carro() {
 			this.id = 0;
 			this.marca = "";
 			this.modelo = "";
-			this.velMax = 0.0;
+			this.velMax = 0;
 			this.estado = "";
-			this.carga = 0.0;
+			this.carga = 0;
 		}
-		public Carro(long id, String n, String o,  double m, String a, double z) {
+		public Carro(long id, String n, String o,  int m, String a, int z) {
 			this.id = id;
 			this.marca = n;
 			this.modelo = o;
@@ -43,10 +43,10 @@ public class Carro {
 		public void setModelo(String modelo) {
 			this.modelo = modelo;
 		}
-		public Double getVelMax() {
+		public int getVelMax() {
 			return velMax;
 		}
-		public void setVelMax(double velMax) {
+		public void setVelMax(int velMax) {
 			this.velMax = velMax;
 		}
 		public String getEstado() {
@@ -55,10 +55,10 @@ public class Carro {
 		public void setEstado(String estado) {
 			this.estado = estado;
 		}
-		public Double getCarga() {
+		public int getCarga() {
 			return carga;
 		}
-		public void setCarga(double carga) {
+		public void setCarga(int carga) {
 			this.carga = carga;
 		}
 		

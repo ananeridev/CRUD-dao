@@ -11,14 +11,14 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 public interface CarrosDao {
 	
 	@SqlUpdate("CREATE TABLE carros (" +
-			   " id BIGINIT NOT NULL " +
+			   " id BIGINT NOT NULL " +
 			   " GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
 			   " marca VARCHAR(255) NOT NULL," +
-			   " modelo VARCHAR(255) NOT NULL," +
-			   " velMax DOUBLE NOT NULL" +
+			   " modelo VARCHAR(255), " +
+			   " velMax INT, " +
 			   " estado VARCHAR(255)," +
-			   " carga DOUBLE NOT NULL," + 
-			   " PRIMARY kEY (id)," + 
+			   " carga INT," + 
+			   " PRIMARY kEY (id)" + 
 	")")
 	void createTable();
 	
