@@ -27,7 +27,7 @@ public interface CarrosDao {
 	
 	@SqlUpdate("INSERT INTO carros (marca, modelo, velMax, estado, carga) VALUES (?,?,?,?,?)")
 	@GetGeneratedKeys("id")
-	long create(String marca, String modelo, double velMax, String estado, double carga);
+	long create(String marca, String modelo, int velMax, String estado, int carga);
 	
 	@SqlQuery("SELECT * FROM carros")
 	@RegisterBeanMapper(Carro.class)
@@ -40,7 +40,7 @@ public interface CarrosDao {
 	@SqlUpdate("UPDATE carros SET marca=:marca, modelo=:modelo, velMax=:velMax, estado=:estado, carga=:carga WHERE id=:id")
 	void update(@BindBean Carro c);
 	
-	@SqlUpdate("UPDATE carros WHERE id=?")
+	@SqlUpdate("DELETE FROM carros WHERE id=?")
 	void delete(long id);
 	
 }
