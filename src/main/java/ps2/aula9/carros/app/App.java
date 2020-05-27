@@ -11,8 +11,7 @@ public class App {
 	
 	
 		public static void main(String[] args) {
-			ClientDataSource ds;
-			ds = new ClientDataSource();
+			ClientDataSource ds = new ClientDataSource();
 			ds.setServerName("localhost");
 			ds.setPortNumber(1527);
 			ds.setDatabaseName("faculdadeV2;create=true");
