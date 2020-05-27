@@ -14,7 +14,6 @@ public class CarrosUI {
 	private CarrosDao dao;
 
 	public CarrosUI(CarrosDao dao) {
-		super();
 		this.dao = dao;
 	}
 
@@ -24,7 +23,7 @@ public class CarrosUI {
 			DialogoGui.mostrar("Tabela criada!");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Deu falha, veja a mensagem que esta no console!!!");
+			DialogoGui.mostrar("Falha na tentativa de criar uma tabela, erro: " + ex.getMessage());
 		}
 	}
 
@@ -34,27 +33,40 @@ public class CarrosUI {
 			DialogoGui.mostrar("Tabela apagada!");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Deu fala, veja a mensagem que esta no console!!!");
+			DialogoGui.mostrar("Falha na tentativa de apagar uma tabela, erro: " + ex.getMessage());
 		}
 	}
 
 	private void opcaoCadastrar() {
 		try {
 			String marca = DialogoGui.lerString("Marca:");
+			validarParametrosDaQuery(marca);
+			
 			String modelo = DialogoGui.lerString("Modelo:");
+			validarParametrosDaQuery(modelo);
+			
 			int velMax = DialogoGui.lerInteiro("Velocidade Maxima");
 			String estado = DialogoGui.lerString("Estado:");
+			validarParametrosDaQuery(estado);
+			
 			int carga = DialogoGui.lerInteiro("Carga");
-
+			
 			long id = dao.create(marca, modelo, velMax, estado, carga);
 			DialogoGui.mostrar("Carro criado com id " + id);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Falha na operação! Veja as mensagens no Console!");
+			DialogoGui.mostrar("Falha ao tentar cadastrar o carro, erro: " + ex.getMessage());
 		}
 	}
 
-	private void opcaoConsultar() {
+	private void validarParametrosDaQuery(String valorInformadoPeloUsuario) {
+     if(valorInformadoPeloUsuario.toUpperCase().contains("DELETE")) {
+       throw new RuntimeException
+         ("SQL INJECTION DETECTED, voce nao tem permissao para deletar um carro neste momento!");
+     }
+    }
+
+  private void opcaoConsultar() {
 		try {
 			String msg = "Carros:\n";
 			List<Carro> Carros = dao.read();
@@ -70,7 +82,7 @@ public class CarrosUI {
 			DialogoGui.mostrar(msg);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Falha na operação! Veja as mensagens no Console!");
+			DialogoGui.mostrar("Falha ao tentar consultar, erro: " + ex.getMessage());
 		}
 	}
 
@@ -80,11 +92,16 @@ public class CarrosUI {
 			Carro c = dao.readById(id);
 			if (c != null) {
 				String marca = DialogoGui.lerString("Novo valor para a marca: ");
+				validarParametrosDaQuery(marca);
+				
 				String modelo = DialogoGui.lerString("Novo valor para modelo");
-				int velMax = DialogoGui.lerInteiro("Novo valor para Velocidade Máxima");
+				validarParametrosDaQuery(modelo);
+				
+				int velMax = DialogoGui.lerInteiro("Novo valor para Velocidade Mï¿½xima");
 				String estado = DialogoGui.lerString("Novo valor para estado");
+				validarParametrosDaQuery(estado);
+				
 				int carga = DialogoGui.lerInteiro("Novo valor para a carga");
-
 
 				c.setMarca(marca);
 				c.setModelo(modelo);
@@ -96,7 +113,7 @@ public class CarrosUI {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Falha na operação! Veja as mensagens no Console!");
+			DialogoGui.mostrar("Falha ao tentar alterar os dados do Carro, erro: " + ex.getMessage());
 		}
 	}
 
@@ -107,30 +124,39 @@ public class CarrosUI {
 			DialogoGui.mostrar("Carro removido com sucesso!");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			DialogoGui.mostrar("Falha na operação! Veja as mensagens no Console!");
+			DialogoGui.mostrar("Falha ao tentar remover o carro, erro: " + ex.getMessage());
 		}
 	}
 
 	public void dialogar() {
 		boolean sair = false;
 		while (!sair) {
-			int op = DialogoGui.menu("Cadastrar", "Consultar", "Alterar", "Apagar",
-					"Criar tabela", "Apagar tabela", "Sair");
-			if (op == 1) {
-				opcaoCadastrar();
-			} else if (op == 2) {
-				opcaoConsultar();
-			} else if (op == 3) {
-				opcaoAlterar();
-			} else if (op == 4) {
-				opcaoApagar();
-			} else if (op == 5) {
-				opcaoCriarTabela();
-			} else if (op == 6) {
-				opcaoApagarTabela();
-			} else  if (op == 7) {
-				sair = true;
-			}
+		  int op = DialogoGui.menu("Cadastrar", "Consultar", "Alterar", "Apagar",
+              "Criar tabela", "Apagar tabela", "Sair");
+		  switch (op) {
+            case 1:
+              opcaoCadastrar();
+              break;
+            case 2: 
+              opcaoConsultar();
+              break;
+            case 3:
+              opcaoAlterar();
+              break;
+            case 4:
+              opcaoApagar();
+              break;
+            case 5:
+              opcaoCriarTabela();
+            case 6: 
+              opcaoApagarTabela();
+              break;
+            case 7:
+              sair = true;
+            default:
+            sair = true;
+              break;
+          }
 		}
 		DialogoGui.mostrar("Fim do programa!");
 	}
